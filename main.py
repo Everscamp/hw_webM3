@@ -3,7 +3,14 @@ import scan
 import shutil
 import normalize
 from pathlib import Path
-from threading import Thread
+import argparse
+
+parser = argparse.ArgumentParser(description='Sorting folder')
+parser.add_argument("source", help="Source folder")
+
+args = vars(parser.parse_args())
+
+source = args.get("source")
 
 def handle_file(path, root_folder, dist):
     target_folder = root_folder/dist
@@ -78,10 +85,11 @@ def main(folder_path):
 
     
 if __name__ == '__main__':
-    path = sys.argv[1]
-    print(f'Start in {path}')
+    # path = sys.argv[1]
+    print(f'Start in {source}')
 
-    folder = Path(path)
+    # folder = Path(path)
+    folder = Path(source)
     main(folder.resolve())
 
 #not really needed here becouse of created result.txt
@@ -92,4 +100,4 @@ if __name__ == '__main__':
     print(f"Others: {len(scan.other)}")
     print(f"All known extensions: {scan.extensions}")
     print(f"Unknown extensions: {scan.unknown_extensions}")
-    print(f'For a more detailed report, look at this file {path}/result.txt')
+    print(f'For a more detailed report, look at this file result.txt in {source}')
